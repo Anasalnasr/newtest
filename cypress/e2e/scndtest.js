@@ -1,10 +1,7 @@
 /// <reference types= "cypress" />
 
-
-
-
 describe('purchasing process', () => {
-    it('add to cart', () => {
+    it('add to cart and verify order confirmation text', () => {
 
         cy.visit("https://automationteststore.com/")
         cy.get('#customer_menu_top > li > a').click();
@@ -18,7 +15,11 @@ describe('purchasing process', () => {
         cy.get('.cart').click();
         cy.get('#cart_checkout1').click();
         cy.get('#checkout_btn').click();
-        //test
 
+        // Wait for the order confirmation text to appear
+        cy.contains(' Your Order Has Been Processed!').should('exist');
+
+        // Verify the order confirmation text using include.text
+        cy.contains(' Your Order Has Been Processed!').should('include.text', ' Your Order Has Been Processed!');
     });
 });
